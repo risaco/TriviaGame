@@ -1,0 +1,42 @@
+#gameSection {
+
+	background-color: yellow;
+}
+
+div.timer {
+
+	background-color: pink;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+div.start {
+
+	background-color: orange;
+	display: block;
+}
+
+div.trivia {
+
+	background-color: orange;
+	display: none;
+}
+
+div.answer {
+
+	background-color: orange;
+	display: none;
+}
+
+div.timeup {
+
+	background-color: orange;
+	display: none;
+}
+
+div.results {
+
+	background-color: orange;
+	display: none;
+}
