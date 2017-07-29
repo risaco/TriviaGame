@@ -35,7 +35,7 @@
 		<div class="row" id="gameSection">
 
 			<!-- Timer Row -->
-			<div class="row timer"><h1 id="timer">Time Remaining: 60 seconds</h1></div>
+			<div class="row timer"><h1 id="timer">Time Remaining: 30 seconds</h1></div>
 
 			<div class="col-md-3" id="spacer"></div>
 
@@ -66,10 +66,17 @@
 				<!-- Choices Row -->
 				<div class="row" id="secondRow choicesRow">
 
-					<button type="button" class="btn btn-default btn-lg btn-block"><h3 id="choice A">First Choice</h3></button>
-					<button type="button" class="btn btn-default btn-lg btn-block"><h3 id="choice B">Second Choice</h3></button>
-					<button type="button" class="btn btn-default btn-lg btn-block"><h3 id="choice C">Third Choice</h3></button>
-					<button type="button" class="btn btn-default btn-lg btn-block"><h3 id="choice D">Fourth Choice</h3></button>
+					<button type="button" class="btn btn-default btn-lg btn-block tButton" id="button-1" value="A">	
+					</button>
+
+					<button type="button" class="btn btn-default btn-lg btn-block tButton" id="button-2" value="B">
+					</button>
+
+					<button type="button" class="btn btn-default btn-lg btn-block tButton" id="button-3" value="C">
+					</button>
+
+					<button type="button" class="btn btn-default btn-lg btn-block tButton" id="button-4" value="D">		
+					</button>
 					
 				</div>
 				
@@ -88,7 +95,7 @@
 				<!-- Image Row -->
 				<div class="row" id="secondRow imageRow">
 					
-					<img src="http://fpoimg.com/300x300" class="img-responsive center-block" id="answerImage" alt="answer">
+					<img src="http://fpoimg.com/300x300" class="img-responsive center-block answerImage" id="answerImage" alt="answer">
 
 				</div>
 
@@ -97,7 +104,7 @@
 			<!-- Time's Up Screen -->
 			<div class="col-md-6 timeup" id="gameBox timeupScreen">
 				
-				<!-- Answer Row -->
+				<!-- Time Up Row -->
 				<div class="row" id="firstRow timeupRow">
 
 					<h2 id="timeup">Out of Time!</h2>
@@ -137,7 +144,7 @@
 				<div class="row" id="secondRow restartRow">
 					
 					<img src="assets/images/ready.gif" class="img-responsive center-block" id="restartImage" alt="restart">
-					<button type="button" class="btn btn-default btn-lg btn-block"><h3 id="restartBtn">Start Again?</h3></button>
+					<button type="button" class="btn btn-default btn-lg btn-block restartBtn" id="startButton"><h3>Start Again?</h3></button>
 
 				</div>
 

@@ -1,42 +1,53 @@
+body {
+
+	background-image: url("../images/game-thrones-map-background-1.jpg");
+}
+
 #gameSection {
 
-	background-color: yellow;
+	/*background-color: yellow;*/
 }
 
 div.timer {
 
-	background-color: pink;
+	/*background-color: pink;*/
 	margin-right: auto;
 	margin-left: auto;
 	text-align: center;
+	color: white;
 }
 
 div.start {
 
-	background-color: orange;
+	/*background-color: orange;*/
 	display: block;
 }
 
 div.trivia {
 
-	background-color: orange;
+	/*background-color: orange;*/
 	display: none;
+	color: white;
 }
 
 div.answer {
 
-	background-color: orange;
+	/*background-color: orange;*/
 	display: none;
+	color: white;
+	text-align: center;
 }
 
 div.timeup {
 
-	background-color: orange;
+	/*background-color: orange;*/
 	display: none;
+	color: white;
+	text-align: center;
 }
 
 div.results {
 
-	background-color: orange;
+	/*background-color: orange;*/
 	display: none;
 }
