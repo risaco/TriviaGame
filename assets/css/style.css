@@ -11,6 +11,7 @@ body {
 div.timer {
 
 	/*background-color: pink;*/
+	display: none;
 	margin-right: auto;
 	margin-left: auto;
 	text-align: center;
@@ -50,4 +51,5 @@ div.results {
 
 	/*background-color: orange;*/
 	display: none;
+	color: white;
 }

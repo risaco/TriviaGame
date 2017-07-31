@@ -37,7 +37,7 @@ $(document).ready(function() {
 		"What does Take the Black mean?", 
 		"Become a Maester", 
 		"Commit Suicide", 
-		"Join the Night’s Watch", 
+		"Join the Night's Watch", 
 		"Become a Sellsword", 
 		"C", 
 		"assets/images/night-watch.jpg", 
@@ -46,7 +46,7 @@ $(document).ready(function() {
 	));
 
 	qItems.push(createQuestion(
-		"Which of the following is NOT one of Dany’s dragons?", 
+		"Which of the following is NOT one of Dany's dragons?", 
 		"Drogon", 
 		"Varys", 
 		"Rhaegal", 
@@ -110,7 +110,7 @@ $(document).ready(function() {
 	// console.log(qItems[0].Wrong);
 
 	// ******* COUNTDOWN TIMER *******
-	var timeRemaining;
+	var timeRemaining = 30;
 
     var intervalId;
 
@@ -122,24 +122,13 @@ $(document).ready(function() {
 
     var unanswered = 0;
 
-    var q = 0;
+    var q = 0; // question indicator (array index)
 
-    $("#startButton").on("click", nextQuestion(qItems[q])); // initial start of game
+    var x = qItems.length;
+
+    $("#startButton").on("click", playGame); // initial start of game
 
     // ******* FUNCTIONS *******
-
-    function nextQuestion(object) {
-
-		populate(object); // populate trivia questions
-		console.log(object);
-
-		changeScreen(); // change to trivia display screen
-
-		run(); //start timer
-
-		playGame(object); // record userGuess, compare to answer, display and count right/wrong answers
-
-    } // end nextQuestion function
 
     function run() {
 
@@ -151,84 +140,105 @@ $(document).ready(function() {
 
       timeRemaining--;  // decrease time by 1
 
-      $("#timer").html("<h2>Time Remaining: " + timeRemaining + " seconds</h2>"); // display current time on screen
+      $("div.timer").html("<h2>Time Remaining: " + timeRemaining + " seconds</h2>"); // display current time on screen
 
-      if (timeRemaining === 0) {  // if time runs out...
+      if (timeRemaining == 0) {  // if time runs out...
 
-        stop(); // stop the timer...
-
-        $("div.trivia").css("display", "none"); // hide trivia screen...
-        $("div.timeup").css("display", "block"); // display timeup screen
+      	stop(); // stop the timer...
 
         q++; // increment indication to move to next question
 
-        setTimeout(changeScreen, 1000 * 5); // wait five seconds and then change back to the trivia screen
+        unanswered += 1; // increase count of unanswered by one
+        console.log("unanswered: " + unanswered);
+        
+        $("div.trivia").css("display", "none"); // hide trivia screen...
+        $("div.timeup").css("display", "block"); // display timeup screen
+
+        populate(qItems[q]); // change the question
+        setTimeout(changeScreen, 1000 * 3); // wait five seconds and then change back to the trivia screen
 
       }
     } // end decrement function
 
-    function playGame (object) {
+    function playGame () {
 
-    	if (q < qItems.length) {  // if there more items...do this
+    	$("div.timer").css("display", "block"); // unhide the timer
 
-			if (timeRemaining != 0) { // as long as there is still time on the clock
+    	populate(qItems[q]); // populate trivia questions
+		console.log(qItems[q]);
+
+		changeScreen(); // change to trivia display screen
+
+    	if (q < x) {  // if there are more items...do this
 
     			$("button.tButton").on("click", function(){  // when an answer button is selected...
 
     				stop();  // stop the clock, clear the interval, reset timeRemaining back to 30 seconds
 
-    				userGuess=this.value; // user's click stores the value of the button "A" "B" "C" "D"
+    				userGuess = $(this).val(); // user's click stores the value of the button "A" "B" "C" "D"
 
     				if (userGuess == qItems[q].Ans) {  // if the user's guess is the same as the answer...
 
     					correctGuess += 1;  // increase correct answers by one
+    					console.log("correct: " + correctGuess);
 
     					answer(qItems[q].Correct); // display the answer screen for correct guesses
 
     					q++; // increment the indicator to move to the next question
 
-    					populate(qItems[q]); // fill the screen with the new question info
+    					if (q == x) {
 
-    					setTimeout(changeScreen, 1000 * 5); // wait on the answer screen for 5 seconds before moving on
+							stop();
+
+				    		results();
+
+				    		setTimeout(showResults, 1000 * 3);
+
+				    	}
+    					
+    					else {
+
+	    					populate(qItems[q]); // fill the screen with the new question info
+
+	    					setTimeout(changeScreen, 1000 * 3); // wait on the answer screen for 5 seconds before moving on
+	    				}
     				}
 
     				else { // if the user guess is not the correct answer...
 
     					wrongGuess += 1; // increment the wrong guesses by one
+    					console.log("wrong: " + wrongGuess);
 
     					answer(qItems[q].Wrong); // display the answer screen for wrong guesses
 
     					q++; // increment the indicator to move to the next question
 
-    					populate(qItems[q]); // fill the screen with the new question info
+    					if (q == x) {
 
-    					setTimeout(changeScreen, 1000 * 5); // wait on the answer screen for 5 seconds before moving on
-    				}
+							stop();
+
+							results();
+
+				    		setTimeout(showResults, 1000 * 3);
+				    	}
+    					
+    					else {
+
+	    					populate(qItems[q]); // fill the screen with the new question info
+
+	    					setTimeout(changeScreen, 1000 * 3); // wait on the answer screen for 5 seconds before moving on
+	    				}
+	    			}
 
     			}); // end of trivia button onclick function
-
-    		} // end of timeRemaining IF statement
     		
     	} // end of main IF statement
-    	else {
-
-    		stop();
-
-    		results();
-
-    		$("div.trivia").css("display", "none");
-    		$("div.results").css("display", "block");
-
-    		resetAnswers();
-
-    		$("#startButton").on("click", nextQuestion(qItems[q]));
-
-    	}
+    
     } // end of playGame function
 
-    function answer(x) {
+    function answer(type) {
 
-    	$("#answers").text(x); // displays the response for correct/incorrect to the screen
+    	$("#answers").text(type); // displays the response for correct/incorrect to the screen
     	document.getElementById("answerImage").src= qItems[q].Image; // displays associated image to screen
     	$("div.trivia").css("display", "none"); // hides trivia screen
     	$("div.answer").css("display", "block"); // displays the answer screen
@@ -262,11 +272,20 @@ $(document).ready(function() {
     	$("div.answer").css("display", "none"); // hides the answer screen
     	$("div.start").css("display", "none"); // hides the start screen
     	$("div.timeup").css("display", "none"); // hides the timeup screen
-
-    	timeRemaining = 30;  // resets time to 30;
-    	// $("#timer").html("<h2>Time Remaining: " + timeRemaining + " seconds</h2>");
+    	$("div.results").css("display", "none"); // hides the results screen
 
     	run();
+ 	}
+
+ 	function showResults () {
+
+ 		$("div.answer").css("display", "none");
+ 		$("div.timer").css("display", "none");
+		$("div.results").css("display", "block");
+
+		resetAnswers();
+
+		$("#restartButton").on("click", playGame);
  	}
 
  	function results() {
@@ -279,9 +298,20 @@ $(document).ready(function() {
  	function resetAnswers() {
 
  		correctGuess = 0;
+ 		console.log("correct: " + correctGuess);
+
  		wrongGuess = 0;
+ 		console.log("wrong: " + wrongGuess);
+
  		unanswered = 0;
+ 		console.log("unanswered: " + unanswered);
+
+ 		console.log("last q value: " + q);
+
  		q = 0;
+
+ 		console.log("new q value: " + q);
+ 		console.log(qItems);
  	}
 
 
