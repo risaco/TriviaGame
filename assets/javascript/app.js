@@ -167,7 +167,7 @@ $(document).ready(function() {
     	populate(qItems[q]); // populate trivia questions
 		console.log(qItems[q]);
 
-		changeScreen(); // change to trivia display screen
+		changeScreen(); // change to trivia display screen, start timer
 
     	if (q < x) {  // if there are more items...do this
 
@@ -176,6 +176,7 @@ $(document).ready(function() {
     				stop();  // stop the clock, clear the interval, reset timeRemaining back to 30 seconds
 
     				userGuess = $(this).val(); // user's click stores the value of the button "A" "B" "C" "D"
+    				console.log(userGuess);
 
     				if (userGuess == qItems[q].Ans) {  // if the user's guess is the same as the answer...
 
@@ -310,8 +311,12 @@ $(document).ready(function() {
 
  		q = 0;
 
+ 		stop();
+
  		console.log("new q value: " + q);
  		console.log(qItems);
+
+ 		$(".tButton").empty();
  	}
 
 
